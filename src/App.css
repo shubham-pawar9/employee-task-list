@@ -117,6 +117,7 @@ th {
   border: none;
   border-bottom: 2px solid #04AA6D;
   transition: 0.2s linear background-color;
+  cursor: pointer;
 }
 .updateButton:hover {
   background-color: #04AA6D;
@@ -140,6 +141,7 @@ th {
     background: #04AA6D;
     border-radius: 2px;
     color: #fff;
+    cursor: pointer;
 }
 .popupTaskList{
   height: -webkit-fill-available;
@@ -177,4 +179,5 @@ th {
   color: green;
   border-radius: 5px;
   border: none;
+  cursor: pointer;
 }

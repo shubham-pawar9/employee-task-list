@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 function EmployeeTaskList({ employeeList, onClose }) {
-  const [employeeId, setEmployeeId] = useState("");
+  const [employeeId, setEmployeeId] = useState();
   const [selectedEmployeeTask, setSelectedEmployeeTask] = useState("");
   const handleTaskList = () => {
     // employeeList &&
@@ -12,9 +12,11 @@ function EmployeeTaskList({ employeeList, onClose }) {
     //       alert("Id not in Employee List, First Add Employee ID")
     //     }
     //   });
+    const trimmedEmployeeId = employeeId.trim();
     const foundEmployee = employeeList.find(
-      (value) => value.employeeId === employeeId
+      (value) => value.employeeId == trimmedEmployeeId
     );
+    console.log(employeeList, employeeId);
     console.log(foundEmployee);
     if (foundEmployee) {
       setSelectedEmployeeTask(foundEmployee.additionalData);
@@ -38,14 +40,16 @@ function EmployeeTaskList({ employeeList, onClose }) {
       <div>
         <table>
           <thead>
-            <th>Date</th>
-            <th>Task</th>
+            <tr>
+              <th>Date</th>
+              <th>Task</th>
+            </tr>
           </thead>
           <tbody>
             {selectedEmployeeTask &&
               selectedEmployeeTask.map((data) => {
                 return (
-                  <tr>
+                  <tr key={data.date}>
                     <td>{data.date}</td>
                     <td>{data.data}</td>
                   </tr>
