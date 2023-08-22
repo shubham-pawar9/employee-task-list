@@ -22,7 +22,7 @@ function App() {
       const response = await fetch("http://localhost:3001/api/employee-list");
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
         setEmployeeList(data);
       } else {
         console.log("Error fetching employee list");
@@ -54,7 +54,7 @@ function App() {
       });
 
       if (response.ok) {
-        setMessage("Employee ID submitted successfully");
+        // setMessage("Employee ID submitted successfully");
         setEmployeeId("");
         setEmployeeName("");
         fetchEmployeeList();
@@ -107,7 +107,7 @@ function App() {
         </label>
         <button type="submit">Submit</button>
       </form>
-      <p>{message}</p>
+      {/* <p>{message}</p> */}
       <EmployeeList
         employeeList={employeeList}
         onOpenPopup={handleOpenPopup}
