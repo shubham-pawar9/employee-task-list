@@ -1,0 +1,180 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.popup-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+input {
+  margin: 0 10px;
+  border: none;
+  box-shadow: 0px 3px 10px 0px gray;
+  border-radius: 5px;
+  font-size: 16px;
+  padding: 10px;
+  background: linear-gradient(to right, #fff  0%, #04AA6D 80%) left;
+  color: #fff;
+  font-weight: bold;
+}
+input:focus-visible {
+  outline: none;
+
+  background: linear-gradient(to left, #fff  0%, #04AA6D 80%) right;
+  /* transition: .5s linear; */
+}
+form button, .popupTaskList .taskSubmit {
+  background-color: #fff;
+    padding: 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    color: #ffffff;
+    border: 1px solid #04AA6D;
+    font-size: 15px;
+    font-weight: bold;
+    text-shadow: 0px 0px 3px #04AA6D;
+    box-shadow: inset 0px 0px 9px 20px #04AA6D;
+    transition: 0.2s linear box-shadow;
+}
+form label {
+    font-size: 15px;
+    font-weight: bold;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+table {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  border-collapse: collapse;
+  width: 100%;
+}
+th, td {
+  text-align: center;
+  padding: 8px;
+}
+tr:hover{
+  background-color: #f2f2f2
+}
+
+th {
+  background-color: #04AA6D;
+  color: white;
+}
+.updateButton {
+  padding: 5px;
+  background-color: #fff;
+  border: none;
+  border-bottom: 2px solid #04AA6D;
+  transition: 0.2s linear background-color;
+}
+.updateButton:hover {
+  background-color: #04AA6D;
+  color:#fff
+}
+.popup-content span {
+  font-weight: bold;
+  text-decoration-line: underline;
+}
+.popup-content textarea {
+  min-width: 315px;
+  max-width: 500px;
+  border: 1px solid #04AA6D;
+  min-height: 75px;
+  max-height: 300px;
+}
+.popup-content button {
+  padding: 5px 10px;
+    margin: 0 5px;
+    border: none;
+    background: #04AA6D;
+    border-radius: 2px;
+    color: #fff;
+}
+.popupTaskList{
+  height: -webkit-fill-available;
+  width: -webkit-fill-available;
+  background: #fff;
+  position: absolute;
+  top: 0px;
+  padding: 10px;
+  z-index: 1000;
+}
+.popupTaskList table{
+  margin-top: 20px;
+}
+.popupTaskList .close {
+  position: absolute;
+  right: 10px;
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+  border: none;
+  background-color: #04AA6D;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+}
+.taskDetails {
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  background-color: #04AA6D;
+}
+.taskDetails button {
+  margin: 5px 0;
+  padding: 5px;
+  color: green;
+  border-radius: 5px;
+  border: none;
+}
