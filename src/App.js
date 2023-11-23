@@ -3,26 +3,24 @@ import "./App.css";
 import EmployeeList from "./EmployeeList";
 import EmployeePopup from "./EmployeePopup";
 import EmployeeTaskList from "./EmployeeTaskList";
+import data from "./data.json";
+
 function App() {
   const [employeeId, setEmployeeId] = useState("");
   const [employeeName, setEmployeeName] = useState("");
   const [employeeList, setEmployeeList] = useState([]);
-  const [message, setMessage] = useState("");
   const [selectedEmployee, setSelectedEmployee] = useState(null);
-  const [employeeTaskDetails, setEmployeeTaskDetails] = useState(null);
+  const [employeeTaskDetails, setEmployeeTaskDetails] = useState(data);
   const [taskPopup, setTaskPopUp] = useState(null);
-  useEffect(() => {
-    fetch("data.json")
-      .then((res) => res.json())
-      .then((val) => setEmployeeTaskDetails(val));
-  }, []);
+
+  const apiBaseUrl =
+    process.env.REACT_APP_API_BASE_URL || "http://localhost:3001/api";
 
   const fetchEmployeeList = async () => {
     try {
-      const response = await fetch("http://localhost:3001/api/employee-list");
+      const response = await fetch(`${apiBaseUrl}/employee-list`);
       if (response.ok) {
         const data = await response.json();
-        // console.log(data);
         setEmployeeList(data);
       } else {
         console.log("Error fetching employee list");
@@ -34,7 +32,7 @@ function App() {
 
   useEffect(() => {
     fetchEmployeeList();
-  }, []);
+  }, [apiBaseUrl]); // Add apiBaseUrl as a dependency
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -54,23 +52,19 @@ function App() {
       });
 
       if (response.ok) {
-        // setMessage("Employee ID submitted successfully");
         setEmployeeId("");
         setEmployeeName("");
         fetchEmployeeList();
       } else {
-        const responseData = await response.json();
-        if (response.status === 400) {
-          alert(responseData.error); // Display error message if employee ID already exists
-        } else {
-          setMessage("Failed to submit Employee ID");
-        }
+        // Handle errors as needed
+        alert("employee Id alreay Added in list");
+        console.log("Failed to submit Employee ID");
       }
     } catch (error) {
-      setMessage("Error submitting Employee ID");
       console.error("Error submitting Employee ID:", error);
     }
   };
+
   const handleOpenPopup = (employee) => {
     setSelectedEmployee(employee);
   };
@@ -116,6 +110,7 @@ function App() {
       {selectedEmployee && (
         <EmployeePopup employee={selectedEmployee} onClose={handleClosePopup} />
       )}
+
       {taskPopup && (
         <EmployeeTaskList
           employeeList={employeeTaskDetails}

@@ -1,29 +1,42 @@
 import React, { useState } from "react";
 
-function EmployeeTaskList({ employeeList, onClose }) {
-  const [employeeId, setEmployeeId] = useState();
-  const [selectedEmployeeTask, setSelectedEmployeeTask] = useState("");
-  const handleTaskList = () => {
-    // employeeList &&
-    //   employeeList.map((value) => {
-    //     if (employeeId == value.employeeId) {
-    //       return setSelectedEmployeeTask(value.additionalData);
-    //     } else {
-    //       alert("Id not in Employee List, First Add Employee ID")
-    //     }
-    //   });
+function EmployeeTaskList({ onClose }) {
+  const [employeeId, setEmployeeId] = useState("");
+  const [selectedEmployeeTask, setSelectedEmployeeTask] = useState([]);
+
+  const apiBaseUrl =
+    process.env.REACT_APP_API_BASE_URL || "http://localhost:3001/api";
+
+  const handleTaskList = async () => {
     const trimmedEmployeeId = employeeId.trim();
-    const foundEmployee = employeeList.find(
-      (value) => value.employeeId == trimmedEmployeeId
-    );
-    console.log(employeeList, employeeId);
-    console.log(foundEmployee);
-    if (foundEmployee) {
-      setSelectedEmployeeTask(foundEmployee.additionalData);
-    } else {
-      alert("Id not in Employee List, First Add Employee ID");
+
+    if (!trimmedEmployeeId) {
+      alert("Please enter a valid Employee ID");
+      return;
+    }
+
+    try {
+      const response = await fetch(`${apiBaseUrl}/employee-list`);
+
+      if (response.ok) {
+        const data = await response.json();
+        const foundEmployee = data.find(
+          (value) => value.employeeId === parseInt(trimmedEmployeeId)
+        );
+
+        if (foundEmployee) {
+          setSelectedEmployeeTask(foundEmployee.additionalData);
+        } else {
+          alert("Employee not found in the Employee List");
+        }
+      } else {
+        console.log("Error fetching employee list");
+      }
+    } catch (error) {
+      console.error("Error fetching employee list:", error);
     }
   };
+
   return (
     <div className="popupTaskList">
       <input
@@ -46,15 +59,12 @@ function EmployeeTaskList({ employeeList, onClose }) {
             </tr>
           </thead>
           <tbody>
-            {selectedEmployeeTask &&
-              selectedEmployeeTask.map((data) => {
-                return (
-                  <tr key={data.date}>
-                    <td>{data.date}</td>
-                    <td>{data.data}</td>
-                  </tr>
-                );
-              })}
+            {selectedEmployeeTask.map((data, index) => (
+              <tr key={index}>
+                <td>{data.date}</td>
+                <td>{data.data}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 
 function EmployeePopup({ employee, onClose }) {
-  const [additionalInfo, setAdditionalInfo] = useState("");
+  const [additionalInfo, setAdditionalInfo] = useState([]);
+
+  const apiBaseUrl =
+    process.env.REACT_APP_API_BASE_URL || "http://localhost:3001/api";
 
   const handleSubmit = async () => {
     if (!additionalInfo) {
@@ -9,19 +12,16 @@ function EmployeePopup({ employee, onClose }) {
     }
 
     try {
-      const response = await fetch(
-        "http://localhost:3001/api/update-additional-data",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            employeeId: employee.employeeId,
-            additionalData: additionalInfo,
-          }),
-        }
-      );
+      const response = await fetch(`${apiBaseUrl}/update-additional-data`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          employeeId: employee.employeeId,
+          additionalData: additionalInfo,
+        }),
+      });
 
       if (response.ok) {
         console.log("Additional data added successfully");
