@@ -4,7 +4,17 @@ const mongoose = require("mongoose");
 
 const app = express();
 const port = process.env.PORT || 3001;
+// Example CORS configuration in Express
+const cors = require("cors");
 
+const corsOptions = {
+  origin: "https://employee-task-list.netlify.app",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true,
+  optionsSuccessStatus: 204,
+};
+
+app.use(cors(corsOptions));
 // Connect to MongoDB
 mongoose.connect(
   "mongodb+srv://shubhpawar9596:DDQpCtncqlCoNENH@cluster0.3ggf80s.mongodb.net/Cluster0?retryWrites=true&w=majority",
